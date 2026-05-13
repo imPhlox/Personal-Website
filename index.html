@@ -1,34 +1,90 @@
 <!DOCTYPE html>
+<!-- Tells the browser this is an HTML5 document -->
+
 <html lang="en">
+<!-- The root element that wraps everything on the page.
+     lang="en" tells the browser the page is in English. -->
+
 <head>
+    <!-- The <head> section is not visible on the page.
+         It holds settings and links that the browser needs to set up the page. -->
+
     <meta charset="UTF-8">
+    <!-- Allows the page to display all characters and symbols correctly -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Makes the page responsive — it scales properly on phones and tablets,
+         not just desktop screens -->
+
     <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css"> <!-- Links index.html to style.css -->
+    <!-- This text appears on the browser tab -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Connects this HTML file to your style.css file.
+         Without this line, none of your CSS styles would apply. -->
 </head>
+
 <body>
+    <!-- Everything inside <body> is what the user actually sees on the page -->
+
     <nav>
-        <!-- Left: Portfolio logo/link -->
+        <!-- <nav> is a semantic HTML element meaning "navigation".
+             It tells the browser (and screen readers) this is the navbar. -->
+
+        <!-- Left side: clicking "Portfolio" sends the user to index.html (home) -->
         <a id="logo" href="index.html">Portfolio</a>
-        
-        <!-- Right: Profile picture + Name -->
+        <!-- <a> is a link element. href="index.html" is the destination.
+             id="logo" lets CSS target and style this element specifically. -->
+
+        <!-- Right side: clicking anywhere on this div (image OR name) opens the modal -->
         <div id="profile" onclick="openModal()">
+            <!-- <div> is a generic container with no built-in meaning.
+                 id="profile" lets CSS and JS target it.
+                 onclick="openModal()" calls the openModal function in script.js
+                 whenever the user clicks anywhere inside this div. -->
+
             <img src="images/leon-kennedy-image.jpg" alt="Profile">
+            <!-- Displays your profile picture.
+                 src is the file path to the image.
+                 alt is the text shown if the image fails to load (also used by screen readers). -->
+
             <span>imPhlouox</span>
+            <!-- <span> is an inline container used here to hold your display name.
+                 It sits beside the image because CSS uses flexbox on #profile. -->
         </div>
     </nav>
 
-    <!-- PROFILE MODAL -->
+    <!-- ── PROFILE MODAL ─────────────────────────────────────────
+         This popup is hidden by default (CSS sets display: none).
+         It only becomes visible when JavaScript adds the "active" class. -->
+
     <div id="modal-overlay">
+        <!-- The full-screen dark background behind the popup.
+             Clicking directly on this (not the white box) will close the modal,
+             handled by the event listener in script.js. -->
+
         <div id="modal-box">
+            <!-- The white popup card centered on the screen -->
+
             <img src="images/leon-kennedy-image.jpg" alt="Profile">
+            <!-- Larger version of your profile picture shown inside the popup -->
+
             <h2>imPhlouox</h2>
+            <!-- Your name as a heading inside the modal -->
+
             <p>Web Developer & Designer</p>
+            <!-- A short description shown below your name -->
+
             <button id="modal-close" onclick="closeModal()">Close</button>
+            <!-- A button that calls closeModal() in script.js when clicked,
+                 which hides the modal again. -->
         </div>
     </div>
 
-    <!-- Links index.html to script.js -->
     <script src="script.js"></script>
+    <!-- Connects this HTML file to your script.js file.
+         Placed at the BOTTOM of <body> on purpose — this ensures the HTML
+         elements above (like #modal-overlay) are fully loaded before
+         JavaScript tries to find and interact with them. -->
 </body>
 </html>
