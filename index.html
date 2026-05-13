@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links index.html to style.css -->
+</head>
+<body>
+    <nav>
+        <!-- Left: Portfolio logo/link -->
+        <a id="logo" href="index.html">Portfolio</a>
+        
+        <!-- Right: Profile picture + Name -->
+        <div id="profile" onclick="openModal()">
+            <img src="images/leon-kennedy-image.jpg" alt="Profile">
+            <span>imPhlouox</span>
+        </div>
+    </nav>
+
+    <!-- PROFILE MODAL -->
+    <div id="modal-overlay">
+        <div id="modal-box">
+            <img src="images/leon-kennedy-image.jpg" alt="Profile">
+            <h2>imPhlouox</h2>
+            <p>Web Developer & Designer</p>
+            <button id="modal-close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Links index.html to script.js -->
+    <script src="script.js"></script>
+</body>
+</html>

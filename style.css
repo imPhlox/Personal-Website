@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #a0a0a0;
+    font-family: sans-serif;
+}
+
+/* NAVBAR */
+nav {
+    background-color: #2d2d2d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+}
+
+/* Portfolio link (left) */
+#logo {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Profile wrapper (right) */
+#profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#profile img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#profile span {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* MODAL (profile details popup */
+#modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-overlay.active {
+    display: flex;
+}
+
+#modal-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 320px;
+    text-align: center;
+}
+
+#modal-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+#modal-box h2 {
+    margin-bottom: 0.5rem;
+}
+
+#modal-box p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+#modal-close {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    background: #2d2d2d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
