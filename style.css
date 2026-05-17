@@ -1,125 +1,322 @@
-/* ── RESET ───────────────────────────────────────────────────
-   Browsers apply their own default spacing to elements.
-   The * selector targets EVERY element on the page at once.
-   This block removes all default spacing so we start clean. */
+/* ── RESET ─────────────────────────────────────────────── */
 * {
-    margin: 0;               /* Removes space outside elements */
-    padding: 0;              /* Removes space inside elements */
-    box-sizing: border-box;  /* Makes width/height include padding,
-                                so sizes behave more predictably */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ── PAGE BODY ───────────────────────────────────────────────
-   Styles applied here affect the entire visible page */
 body {
-    background-color: #a0a0a0; /* Medium grey page background */
-    font-family: sans-serif;   /* Clean, modern font for all text */
+    background-color: #a0a0a0;
+    font-family: sans-serif;
 }
 
 
 /* ══════════════════════════════════════════════════════════
-   NAVBAR
+   NAVIGATION BAR (unchanged from before)
 ══════════════════════════════════════════════════════════ */
-
 nav {
-    background-color: #2d2d2d;      /* Dark grey bar */
-    display: flex;                   /* Lines up children side by side in a row */
-    align-items: center;             /* Vertically centers items within the bar */
-    justify-content: space-between;  /* Pushes logo to far left, profile to far right */
-    padding: 0 2rem;                 /* No top/bottom padding, 2rem on left and right */
-    height: 64px;                    /* Fixed height of the navbar */
+    background-color: #2d2d2d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
 }
 
-/* ── PORTFOLIO LOGO (left side) ─────────────────────────── */
 #logo {
-    /* The # means we're targeting the element with id="logo" */
-    color: #ffffff;           /* White text */
-    font-size: 1.2rem;        /* Slightly larger than normal body text */
-    font-weight: bold;        /* Makes the text thick/heavy */
-    text-decoration: none;    /* Removes the default blue underline from links */
-}
-
-/* ── PROFILE WRAPPER (right side) ───────────────────────── */
-#profile {
-    display: flex;       /* Lines up the image and name side by side */
-    align-items: center; /* Vertically centers the name next to the image */
-    gap: 12px;           /* Adds 12px of space between the image and the name */
-    cursor: pointer;     /* Changes the mouse cursor to a hand icon on hover,
-                            signaling to the user that this is clickable */
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
     text-decoration: none;
 }
 
+#profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
 #profile img {
-    /* Targets the <img> that is INSIDE #profile */
     width: 44px;
     height: 44px;
-    border-radius: 50%;  /* Turns the square image into a circle.
-                            50% rounds all corners until it's a full circle. */
-    object-fit: cover;   /* Crops the image to fill the circle without stretching it */
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 #profile span {
-    /* Targets the <span> (your name) that is INSIDE #profile */
-    color: #ffffff;       /* White text */
-    font-size: 1rem;      /* Normal body text size */
-    font-weight: 500;     /* Medium weight — between normal (400) and bold (700) */
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-
-/* ══════════════════════════════════════════════════════════
-   MODAL (the popup that appears when profile is clicked)
-══════════════════════════════════════════════════════════ */
-
+/* Profile modal (unchanged) */
 #modal-overlay {
-    display: none;      /* Hidden by default. JavaScript will change this. */
-    position: fixed;    /* Stays locked to the screen even if the page scrolls */
-    inset: 0;           /* Shorthand for: top: 0, right: 0, bottom: 0, left: 0
-                           This stretches the overlay to cover the full screen */
-    background: rgba(0, 0, 0, 0.5); /* Black at 50% opacity — the dim backdrop */
-    justify-content: center; /* Horizontally centers the modal box */
-    align-items: center;     /* Vertically centers the modal box */
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-#modal-overlay.active {
-    /* This rule only applies when JavaScript adds class="active" to the overlay.
-       It switches display from "none" to "flex", making the modal visible. */
-    display: flex;
-}
+#modal-overlay.active { display: flex; }
 
-/* ── THE WHITE POPUP CARD ───────────────────────────────── */
 #modal-box {
-    background: #ffffff;  /* White card */
-    border-radius: 12px;  /* Rounded corners on the popup */
-    padding: 2rem;        /* Inner spacing so content doesn't touch the edges */
-    width: 320px;         /* Fixed width of the popup */
-    text-align: center;   /* Centers all text and inline elements inside */
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 320px;
+    text-align: center;
 }
 
 #modal-box img {
     width: 80px;
     height: 80px;
-    border-radius: 50%;       /* Circular profile picture inside the modal */
+    border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 1rem;      /* Adds space below the image, above the name */
+    margin-bottom: 1rem;
 }
 
-#modal-box h2 {
-    margin-bottom: 0.5rem;    /* Small gap between name and the paragraph below */
-}
+#modal-box h2 { margin-bottom: 0.5rem; }
 
 #modal-box p {
-    color: #555;              /* Muted dark grey for the description text */
-    font-size: 0.95rem;       /* Slightly smaller than normal body text */
+    color: #555;
+    font-size: 0.95rem;
 }
 
-/* ── CLOSE BUTTON ───────────────────────────────────────── */
 #modal-close {
-    margin-top: 1.5rem;    /* Space above the button, below the paragraph */
+    margin-top: 1.5rem;
     padding: 0.5rem 1.5rem;
-    background: #2d2d2d;   /* Matches the navbar color */
+    background: #2d2d2d;
     color: #fff;
-    border: none;          /* Removes the default border browsers add to buttons */
-    border-radius: 8px;    /* Slightly rounded corners */
-    cursor: pointer;       /* Hand cursor so it looks clickable */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     font-size: 0.9rem;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   SCHEDULE SECTION
+══════════════════════════════════════════════════════════ */
+
+#schedule-section {
+    display: flex;          /* Places the label and calendar side by side */
+    align-items: flex-start; /* Aligns both to the top, not the center */
+    gap: 2rem;              /* Space between the "Schedule" label and the calendar */
+    padding: 2rem;          /* Breathing room from the edges of the page */
+}
+
+/* ── LEFT SIDE — "Schedule" label ───────────────────────── */
+#schedule-label {
+    /* flex-shrink: 0 prevents this from getting squished
+       when the calendar needs more space */
+    flex-shrink: 0;
+    width: 120px;           /* Fixed width so it always stays the same size */
+    padding-top: 0.5rem;    /* Nudges the text down slightly to align with the calendar top */
+}
+
+#schedule-label h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+/* ── RIGHT SIDE — Calendar container ────────────────────── */
+#calendar {
+    flex: 1;                /* Takes up all remaining space next to the label */
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle drop shadow for depth */
+}
+
+/* ── WEEK NAVIGATION (arrows + week label) ──────────────── */
+#calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Arrow | Week range text | Arrow */
+    margin-bottom: 1rem;
+}
+
+#calendar-nav button {
+    background: #2d2d2d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#calendar-nav button:hover {
+    background: #444;       /* Slightly lighter on hover for feedback */
+}
+
+#week-label {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* ── DAY HEADERS (Mon, Tue, Wed...) ─────────────────────── */
+#calendar-headers {
+    display: grid;
+    /* Creates 7 equal-width columns — one per day of the week.
+       "1fr" means "1 fraction of available space". 
+       "repeat(7, 1fr)" is shorthand for writing 1fr seven times. */
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.day-header {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #555;
+    padding: 0.3rem 0;
+}
+
+.day-header.today-header {
+    color: #2d2d2d;         /* Highlights the current day's header */
+    text-decoration: underline;
+}
+
+/* ── DAY COLUMNS (the clickable boxes) ──────────────────── */
+#calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Same 7-column grid as the headers */
+    gap: 0.5rem;
+}
+
+.day-column {
+    background: #f5f5f5;    /* Light grey box for each day */
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-height: 120px;      /* Tall enough to show several events */
+    cursor: pointer;        /* Tells the user the column is clickable */
+    transition: background 0.2s; /* Smooth color change on hover */
+}
+
+.day-column:hover {
+    background: #e8e8e8;    /* Slightly darker on hover for click feedback */
+}
+
+.day-column.today {
+    border: 2px solid #2d2d2d; /* Highlights today's column with a dark border */
+}
+
+/* The date number shown at the top of each day column (e.g. "13") */
+.day-number {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.4rem;
+    text-align: center;
+}
+
+/* ── EVENT CHIPS (the coloured event labels inside day columns) ── */
+.event-chip {
+    background: #2d2d2d;    /* Dark background for the event tag */
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    margin-bottom: 0.3rem;
+
+    /* Flexbox to put event name on the left, delete X on the right */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+/* The small × delete button inside each event chip */
+.event-chip .delete-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1;
+    padding: 0;
+    /* Stops the click from also triggering the day column click (openEventModal) */
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   ADD EVENT MODAL
+══════════════════════════════════════════════════════════ */
+
+#event-modal-overlay {
+    display: none;          /* Hidden by default */
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+#event-modal-overlay.active {
+    display: flex;          /* Shown when JS adds the "active" class */
+}
+
+#event-modal-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 300px;
+    display: flex;
+    flex-direction: column; /* Stacks children vertically (title, date, input, buttons) */
+    gap: 1rem;              /* Space between each stacked item */
+}
+
+#event-modal-box h3 {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+#event-date-label {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* The text input field for typing the event name */
+#event-input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;            /* Stretches to fill the modal width */
+}
+
+#event-input:focus {
+    outline: 2px solid #2d2d2d; /* Dark outline when the user clicks into the field */
+}
+
+#event-modal-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end; /* Pushes buttons to the right side */
+}
+
+#event-modal-buttons button {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Save button — dark to stand out as the primary action */
+#event-modal-buttons button:first-child {
+    background: #2d2d2d;
+    color: #fff;
+}
+
+/* Cancel button — lighter since it's the secondary action */
+#event-modal-buttons button:last-child {
+    background: #e0e0e0;
+    color: #333;
 }
