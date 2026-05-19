@@ -6,21 +6,27 @@
 }
 
 body {
-    background-color: #a0a0a0;
-    font-family: sans-serif;
+    background-color: #1c1a22;
+    font-family: monospace;
 }
 
 
 /* ══════════════════════════════════════════════════════════
-   NAVIGATION BAR (unchanged from before)
+   NAVIGATION BAR
 ══════════════════════════════════════════════════════════ */
+
 nav {
-    background-color: #2d2d2d;
+    background-color: #1c1a22;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
     height: 64px;
+
+    /* NEW: white line only on the bottom of the navbar.
+       border-bottom: [thickness] [style] [color]
+       "solid" means a continuous straight line. */
+    border-bottom: 1px solid #2f2e32;
 }
 
 #logo {
@@ -98,73 +104,145 @@ nav {
 
 
 /* ══════════════════════════════════════════════════════════
-   SCHEDULE SECTION
+   PAGE LAYOUT
+   Splits the page below the navbar into two columns:
+   sidebar on the left, content area on the right.
 ══════════════════════════════════════════════════════════ */
 
-#schedule-section {
-    display: flex;          /* Places the label and calendar side by side */
-    align-items: flex-start; /* Aligns both to the top, not the center */
-    gap: 2rem;              /* Space between the "Schedule" label and the calendar */
-    padding: 2rem;          /* Breathing room from the edges of the page */
+#page-layout {
+    display: flex;          /* Places sidebar and content area side by side */
+    height: calc(100vh - 66px);
+    /* 100vh = full viewport height (the visible screen height).
+       We subtract 66px (navbar height + border) so the layout
+       fills exactly the remaining space below the navbar. */
 }
 
-/* ── LEFT SIDE — "Schedule" label ───────────────────────── */
-#schedule-label {
-    /* flex-shrink: 0 prevents this from getting squished
-       when the calendar needs more space */
-    flex-shrink: 0;
-    width: 120px;           /* Fixed width so it always stays the same size */
-    padding-top: 0.5rem;    /* Nudges the text down slightly to align with the calendar top */
+
+/* ── LEFT SIDEBAR ────────────────────────────────────────── */
+
+#sidebar {
+    width: 160px;           /* Fixed width — won't shrink or grow */
+    flex-shrink: 0;         /* Prevents flexbox from squishing the sidebar */
+    background-color: #1c1a22; /* Matches the navbar color */
+    display: flex;
+    flex-direction: column; /* Stacks the buttons vertically */
+    padding: 1rem 0;        /* Top/bottom breathing room, no left/right padding */
+
+    /* White line on the right edge of the sidebar, separating it from content */
+    border-right: 1px solid #2f2e32;
 }
 
-#schedule-label h2 {
+/* Base style for all three sidebar buttons */
+.nav-btn {
+    background: none;       /* No background by default — blends with sidebar */
+    border: none;
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    text-align: left;       /* Aligns text to the left inside the button */
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    width: 100%;            /* Button stretches the full width of the sidebar */
+    transition: background 0.2s; /* Smooth hover effect */
 }
 
-/* ── RIGHT SIDE — Calendar container ────────────────────── */
+.nav-btn:hover {
+    background-color: #444; /* Slightly lighter on hover */
+}
+
+/* Highlights the currently selected sidebar button.
+   JavaScript adds/removes this class when a button is clicked. */
+.nav-btn.active-nav {
+    background-color: #555;         /* Visually distinct from unselected buttons */
+    border-left: 3px solid #ffffff; /* White accent line on the left edge */
+    font-weight: bold;
+}
+
+
+/* ── RIGHT CONTENT AREA ──────────────────────────────────── */
+
+#content-area {
+    flex: 1;                /* Takes up all remaining space next to the sidebar */
+    padding: 2rem;
+    overflow-y: auto;       /* Adds a scrollbar if content is taller than the screen */
+}
+
+/* Shared class on all three sections (schedule, haircare, skincare).
+   All sections are hidden by default — JS reveals the active one. */
+.content-section {
+    display: none;          /* Hidden unless JavaScript sets display to "block" */
+}
+
+/* The active section — JavaScript adds this class to whichever
+   section should currently be visible. */
+.content-section.active-section {
+    display: block;
+}
+
+/* Placeholder text shown in Haircare and Skincare until content is added */
+.placeholder-text {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CALENDAR
+══════════════════════════════════════════════════════════ */
+
 #calendar {
-    flex: 1;                /* Takes up all remaining space next to the label */
-    background: #ffffff;
+    /* UPDATE 1: Calendar background changed from #ffffff to #1c1a22
+       so it blends with the dark page theme. */
+    background: #1c1a22;
+
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle drop shadow for depth */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    /* UPDATE 2: Added a border around the calendar card using the
+       same subtle dark tone used throughout the page (#2f2e32). */
+    border: 1px solid #2f2e32;
+
+    /* UPDATE 3: Font set to monospace to match the rest of the site.
+       This overrides any inherited serif/sans-serif fonts inside
+       the calendar so everything reads consistently. */
+    font-family: monospace;
 }
 
-/* ── WEEK NAVIGATION (arrows + week label) ──────────────── */
 #calendar-nav {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Arrow | Week range text | Arrow */
+    justify-content: space-between;
     margin-bottom: 1rem;
 }
 
 #calendar-nav button {
-    background: #2d2d2d;
+    /* UPDATE 4: Background changed from #2d2d2d to #1c1a22 so the
+       arrow buttons match the new dark calendar background.
+       UPDATE 5: Added a border around each arrow button using #2f2e32
+       so they remain visible and distinct against the dark background. */
+    background: #1c1a22;
+    border: 1px solid #2f2e32;
+
     color: #fff;
-    border: none;
     border-radius: 6px;
     padding: 0.4rem 0.8rem;
     cursor: pointer;
     font-size: 1rem;
 }
 
-#calendar-nav button:hover {
-    background: #444;       /* Slightly lighter on hover for feedback */
-}
+#calendar-nav button:hover { background: #444; }
 
 #week-label {
     font-weight: bold;
     font-size: 0.95rem;
-    color: #333;
+    /* UPDATE 4 (cont.): Label text changed from #333 (dark grey, hard
+       to read on dark bg) to #ffffff so it's legible on #1c1a22. */
+    color: #ffffff;
 }
 
-/* ── DAY HEADERS (Mon, Tue, Wed...) ─────────────────────── */
 #calendar-headers {
     display: grid;
-    /* Creates 7 equal-width columns — one per day of the week.
-       "1fr" means "1 fraction of available space". 
-       "repeat(7, 1fr)" is shorthand for writing 1fr seven times. */
     grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
     margin-bottom: 0.5rem;
@@ -174,40 +252,47 @@ nav {
     text-align: center;
     font-size: 0.8rem;
     font-weight: bold;
-    color: #555;
+    /* UPDATE 4 (cont.): Header text lightened from #555 to #aaaaaa
+       so it's readable on the dark calendar background. */
+    color: #aaaaaa;
     padding: 0.3rem 0;
 }
 
 .day-header.today-header {
-    color: #2d2d2d;         /* Highlights the current day's header */
+    /* UPDATE 4 (cont.): Today's header text changed from #2d2d2d to
+       #ffffff so the underline highlight stays clear on dark bg. */
+    color: #ffffff;
     text-decoration: underline;
 }
 
-/* ── DAY COLUMNS (the clickable boxes) ──────────────────── */
 #calendar-days {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Same 7-column grid as the headers */
+    grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
 }
 
 .day-column {
-    background: #f5f5f5;    /* Light grey box for each day */
+    /* UPDATE 6: Day column background changed from #f5f5f5 (light grey)
+       to #2f2e32 so each column stands out subtly against the dark
+       #1c1a22 calendar background — same tone used for all borders. */
+    background: #2f2e32;
+
     border-radius: 8px;
     padding: 0.5rem;
-    min-height: 120px;      /* Tall enough to show several events */
-    cursor: pointer;        /* Tells the user the column is clickable */
-    transition: background 0.2s; /* Smooth color change on hover */
+    min-height: 765px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.day-column:hover {
-    background: #e8e8e8;    /* Slightly darker on hover for click feedback */
-}
+.day-column:hover { background: #3a3940; }
+/* Hover lightened slightly from the old #e8e8e8 (which was for a light
+   theme) to #3a3940 — just a touch brighter than #2f2e32 so the
+   hover effect is still visible on the dark background. */
 
-.day-column.today {
-    border: 2px solid #2d2d2d; /* Highlights today's column with a dark border */
-}
+.day-column.today { border: 2px solid #ffffff; }
+/* Today's border changed from #2d2d2d (invisible on dark bg)
+   to #ffffff so it clearly highlights the current day. */
 
-/* The date number shown at the top of each day column (e.g. "13") */
 .day-number {
     font-size: 0.85rem;
     font-weight: bold;
@@ -216,23 +301,19 @@ nav {
     text-align: center;
 }
 
-/* ── EVENT CHIPS (the coloured event labels inside day columns) ── */
 .event-chip {
-    background: #2d2d2d;    /* Dark background for the event tag */
+    background: #2d2d2d;
     color: #fff;
     font-size: 0.75rem;
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     margin-bottom: 0.3rem;
-
-    /* Flexbox to put event name on the left, delete X on the right */
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 4px;
 }
 
-/* The small × delete button inside each event chip */
 .event-chip .delete-btn {
     background: none;
     border: none;
@@ -241,16 +322,14 @@ nav {
     font-size: 0.85rem;
     line-height: 1;
     padding: 0;
-    /* Stops the click from also triggering the day column click (openEventModal) */
 }
 
-
 /* ══════════════════════════════════════════════════════════
-   ADD EVENT MODAL
+   ADD EVENT MODAL (unchanged)
 ══════════════════════════════════════════════════════════ */
 
 #event-modal-overlay {
-    display: none;          /* Hidden by default */
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -258,9 +337,7 @@ nav {
     align-items: center;
 }
 
-#event-modal-overlay.active {
-    display: flex;          /* Shown when JS adds the "active" class */
-}
+#event-modal-overlay.active { display: flex; }
 
 #event-modal-box {
     background: #fff;
@@ -268,8 +345,8 @@ nav {
     padding: 2rem;
     width: 300px;
     display: flex;
-    flex-direction: column; /* Stacks children vertically (title, date, input, buttons) */
-    gap: 1rem;              /* Space between each stacked item */
+    flex-direction: column;
+    gap: 1rem;
 }
 
 #event-modal-box h3 {
@@ -282,23 +359,20 @@ nav {
     color: #777;
 }
 
-/* The text input field for typing the event name */
 #event-input {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 0.95rem;
-    width: 100%;            /* Stretches to fill the modal width */
+    width: 100%;
 }
 
-#event-input:focus {
-    outline: 2px solid #2d2d2d; /* Dark outline when the user clicks into the field */
-}
+#event-input:focus { outline: 2px solid #2d2d2d; }
 
 #event-modal-buttons {
     display: flex;
     gap: 0.5rem;
-    justify-content: flex-end; /* Pushes buttons to the right side */
+    justify-content: flex-end;
 }
 
 #event-modal-buttons button {
@@ -309,14 +383,70 @@ nav {
     font-size: 0.9rem;
 }
 
-/* Save button — dark to stand out as the primary action */
 #event-modal-buttons button:first-child {
     background: #2d2d2d;
     color: #fff;
 }
 
-/* Cancel button — lighter since it's the secondary action */
 #event-modal-buttons button:last-child {
     background: #e0e0e0;
     color: #333;
+}
+
+/* ══════════════════════════════════════════════════════════
+   HAIRCARE PRODUCT LIST
+   Each row (product-card) holds four pieces of information
+   side by side: image | name | price | from.
+══════════════════════════════════════════════════════════ */
+
+#haircare-list {
+    display: flex;
+    flex-direction: column; /* Stacks product cards vertically, one per row */
+    gap: 1rem;              /* Space between each product row */
+}
+
+.product-card {
+    display: flex;          /* Lays the four fields out horizontally */
+    align-items: center;    /* Vertically centres the image and text */
+    gap: 1.5rem;            /* Space between each field */
+    background-color: #2a2830; /* Slightly lighter than the page background */
+    border-radius: 10px;
+    padding: 0.85rem 1.25rem;
+    border: 1px solid #2f2e32;
+}
+
+/* PRODUCT IMAGE */
+.product-img {
+    width: 64px;            /* Fixed square thumbnail size */
+    height: 64px;
+    object-fit: cover;      /* Crops the image to fill the square neatly */
+    border-radius: 8px;
+    flex-shrink: 0;         /* Prevents the image from squishing when space is tight */
+    background-color: #3a3840; /* Placeholder colour shown when src is empty */
+}
+
+/* PRODUCT NAME — takes up the remaining space, pushing price & from to the right */
+.product-name {
+    flex: 1;                /* Grows to fill leftover space */
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* PRICE */
+.product-price {
+    color: #a8e6a3;         /* Soft green so the price stands out */
+    font-size: 0.9rem;
+    white-space: nowrap;    /* Keeps "$28.00" on one line */
+    min-width: 60px;        /* Reserves consistent space even when empty */
+    text-align: right;
+}
+
+/* FROM (store / website) */
+.product-from {
+    color: #aaaaaa;         /* Muted grey — secondary info */
+    font-size: 0.85rem;
+    white-space: nowrap;
+    min-width: 80px;        /* Reserves consistent space even when empty */
+    text-align: right;
 }
