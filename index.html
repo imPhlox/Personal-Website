@@ -9,7 +9,9 @@
 <body>
 
     <!-- ══════════════════════════════════════════════════════
-         NAVIGATION BAR (unchanged from before)
+         NAVIGATION BAR
+         The bottom white border is handled in style.css
+         under the "nav" rule using border-bottom.
     ══════════════════════════════════════════════════════ -->
     <nav>
         <a id="logo" href="index.html">Portfolio</a>
@@ -20,7 +22,7 @@
         </div>
     </nav>
 
-    <!-- PROFILE MODAL (unchanged from before) -->
+    <!-- PROFILE MODAL (unchanged) -->
     <div id="modal-overlay">
         <div id="modal-box">
             <img src="images/leon-kennedy-image.jpg" alt="Profile">
@@ -32,71 +34,111 @@
 
 
     <!-- ══════════════════════════════════════════════════════
-         SCHEDULE SECTION
-         This sits below the navbar on the home page.
-         It is split into two sides using flexbox:
-         - Left side: the "Schedule" label
-         - Right side: the weekly calendar
+         PAGE LAYOUT
+         This wrapper splits the page into two columns:
+         - Left: the sidebar navigation (Schedule, Haircare, Skincare)
+         - Right: the content area (whichever section is active)
     ══════════════════════════════════════════════════════ -->
-    <section id="schedule-section">
+    <div id="page-layout">
 
-        <!-- LEFT SIDE — just the word "Schedule" -->
-        <div id="schedule-label">
-            <h2>Schedule</h2>
-        </div>
+        <!-- ── LEFT SIDEBAR NAVIGATION ───────────────────────
+             Each <button> calls showSection() with the ID of
+             the section it should reveal on the right side.
+             The "active-nav" class highlights the selected one. -->
+        <div id="sidebar">
 
-        <!-- RIGHT SIDE — the full calendar lives here -->
-        <div id="calendar">
+            <button
+                class="nav-btn active-nav"
+                onclick="showSection('schedule-section', this)">
+                Schedule
+            </button>
+            <!-- class="nav-btn"  → base styles for all sidebar buttons
+                 class="active-nav" → highlights the currently selected button
+                 onclick="showSection('schedule-section', this)"
+                   → calls showSection() passing:
+                      1. the ID of the section to show
+                      2. "this" = the button itself, so we can highlight it -->
 
-            <!-- WEEK NAVIGATION — arrows to go back and forward one week -->
-            <div id="calendar-nav">
-                <!-- Clicking these buttons calls the functions in script.js
-                     that move the calendar backward or forward by 7 days -->
-                <button onclick="changeWeek(-1)">&#8592;</button> <!-- Left arrow character -->
+            <button
+                class="nav-btn"
+                onclick="showSection('haircare-section', this)">
+                Haircare
+            </button>
 
-                <!-- This span is empty here — script.js fills it in with the
-                     current week range (e.g. "May 12 – May 18, 2025") -->
-                <span id="week-label"></span>
+            <button
+                class="nav-btn"
+                onclick="showSection('skincare-section', this)">
+                Skincare
+            </button>
 
-                <button onclick="changeWeek(1)">&#8594;</button> <!-- Right arrow character -->
-            </div>
-
-            <!-- DAY HEADERS — Mon, Tue, Wed... displayed above the day columns -->
-            <div id="calendar-headers">
-                <!-- script.js will generate these automatically based on the current week -->
-            </div>
-
-            <!-- DAY COLUMNS — one box per day where events will appear -->
-            <div id="calendar-days">
-                <!-- script.js generates 7 day columns here (Monday to Sunday).
-                     Each column is clickable to add a new event. -->
-            </div>
-
-        </div>
-    </section>
+        </div><!-- end #sidebar -->
 
 
-    <!-- ADD EVENT MODAL — appears when the user clicks on a day -->
+        <!-- ── RIGHT CONTENT AREA ────────────────────────────
+             All three sections live here at the same time.
+             Only one is visible — the others have display:none.
+             JavaScript toggles which one shows. -->
+        <div id="content-area">
+
+
+            <!-- SCHEDULE SECTION (visible by default) -->
+            <section id="schedule-section" class="content-section">
+            <!-- class="content-section" is shared by all three sections.
+                 JavaScript uses this class to find and hide all of them
+                 before showing the one that was clicked. -->
+
+                <!-- The calendar markup is unchanged from before -->
+                <div id="calendar">
+
+                    <div id="calendar-nav">
+                        <button onclick="changeWeek(-1)">&#8592;</button>
+                        <span id="week-label"></span>
+                        <button onclick="changeWeek(1)">&#8594;</button>
+                    </div>
+
+                    <div id="calendar-headers"></div>
+                    <div id="calendar-days"></div>
+
+                </div>
+
+            </section><!-- end #schedule-section -->
+
+
+            <!-- HAIRCARE SECTION (hidden by default) -->
+            <section id="haircare-section" class="content-section">
+            <!-- This section is hidden on load. Content will be added later. -->
+
+                <p class="placeholder-text">Haircare content coming soon.</p>
+
+            </section><!-- end #haircare-section -->
+
+
+            <!-- SKINCARE SECTION (hidden by default) -->
+            <section id="skincare-section" class="content-section">
+            <!-- This section is hidden on load. Content will be added later. -->
+
+                <p class="placeholder-text">Skincare content coming soon.</p>
+
+            </section><!-- end #skincare-section -->
+
+
+        </div><!-- end #content-area -->
+
+    </div><!-- end #page-layout -->
+
+
+    <!-- ADD EVENT MODAL (unchanged) -->
     <div id="event-modal-overlay">
         <div id="event-modal-box">
             <h3>Add Event</h3>
-
-            <!-- Shows which day the user clicked, e.g. "Monday, May 13" -->
             <p id="event-date-label"></p>
-
-            <!-- Text input where the user types the event name -->
             <input type="text" id="event-input" placeholder="Event name..." />
-
             <div id="event-modal-buttons">
-                <!-- Saves the event to that day -->
                 <button onclick="saveEvent()">Save</button>
-
-                <!-- Cancels without saving -->
                 <button onclick="closeEventModal()">Cancel</button>
             </div>
         </div>
     </div>
-
 
     <script src="script.js"></script>
 </body>
