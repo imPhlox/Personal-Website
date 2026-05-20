@@ -399,7 +399,8 @@ nav {
    side by side: image | name | price | from.
 ══════════════════════════════════════════════════════════ */
 
-#haircare-list {
+#haircare-list, 
+#skincare-list {
     display: flex;
     flex-direction: column; /* Stacks product cards vertically, one per row */
     gap: 1rem;              /* Space between each product row */
@@ -449,4 +450,26 @@ nav {
     white-space: nowrap;
     min-width: 80px;        /* Reserves consistent space even when empty */
     text-align: right;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SKINCARE CATEGORY LABELS (Morning / Evening)
+══════════════════════════════════════════════════════════ */
+
+/* The "Morning" and "Evening" plain-text headings */
+.skincare-category {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1.5rem;     /* Space above each label so it breathes from the list above it */
+    margin-bottom: 0.75rem; /* Space between the label and the first product card below it */
+}
+
+/* Apply the same flex + gap layout used by haircare
+   to both skincare sub-lists */
+#skincare-morning-list,
+#skincare-evening-list {
+    display: flex;
+    flex-direction: column; /* Stacks cards vertically */
+    gap: 1rem;              /* Space between each product card */
 }
