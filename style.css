@@ -393,3 +393,60 @@ nav {
     color: #333;
 }
 
+/* ══════════════════════════════════════════════════════════
+   HAIRCARE PRODUCT LIST
+   Each row (product-card) holds four pieces of information
+   side by side: image | name | price | from.
+══════════════════════════════════════════════════════════ */
+
+#haircare-list {
+    display: flex;
+    flex-direction: column; /* Stacks product cards vertically, one per row */
+    gap: 1rem;              /* Space between each product row */
+}
+
+.product-card {
+    display: flex;          /* Lays the four fields out horizontally */
+    align-items: center;    /* Vertically centres the image and text */
+    gap: 1.5rem;            /* Space between each field */
+    background-color: #2a2830; /* Slightly lighter than the page background */
+    border-radius: 10px;
+    padding: 0.85rem 1.25rem;
+    border: 1px solid #2f2e32;
+}
+
+/* PRODUCT IMAGE */
+.product-img {
+    width: 64px;            /* Fixed square thumbnail size */
+    height: 64px;
+    object-fit: cover;      /* Crops the image to fill the square neatly */
+    border-radius: 8px;
+    flex-shrink: 0;         /* Prevents the image from squishing when space is tight */
+    background-color: #3a3840; /* Placeholder colour shown when src is empty */
+}
+
+/* PRODUCT NAME — takes up the remaining space, pushing price & from to the right */
+.product-name {
+    flex: 1;                /* Grows to fill leftover space */
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* PRICE */
+.product-price {
+    color: #a8e6a3;         /* Soft green so the price stands out */
+    font-size: 0.9rem;
+    white-space: nowrap;    /* Keeps "$28.00" on one line */
+    min-width: 60px;        /* Reserves consistent space even when empty */
+    text-align: right;
+}
+
+/* FROM (store / website) */
+.product-from {
+    color: #aaaaaa;         /* Muted grey — secondary info */
+    font-size: 0.85rem;
+    white-space: nowrap;
+    min-width: 80px;        /* Reserves consistent space even when empty */
+    text-align: right;
+}
